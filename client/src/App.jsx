@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ButtonGroup from './components/ButtonGroup.jsx'
 import Button from './components/Button.jsx'
 
 export default function App() {
@@ -6,13 +7,7 @@ export default function App() {
   const [isLoadingForSave, setIsLoadingForSave] = useState(false)
   const [isLoadingForDelete, setIsLoadingForDelete] = useState(false)
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '18px',
-        alignItems: 'flex-start'
-      }}>
+    <ButtonGroup direction="horizontal">
       <Button
         variant="secondary"
         loading={isLoadingForCancel}
@@ -39,6 +34,6 @@ export default function App() {
         }}>
         삭제
       </Button>
-    </div>
+    </ButtonGroup>
   )
 }

@@ -1,3 +1,15 @@
+.btn-group {
+  display: flex;
+  align-items: flex-start;
+}
+.btn-group.vertical {
+  flex-direction: column;
+  gap: 18px;
+}
+.btn-group.horizontal {
+  flex-direction: row;
+  gap: 10px;
+}
 .btn {
   display: flex;
   justify-content: center;
@@ -36,10 +48,10 @@
 }
 .btn-danger {
   background-color: red;
-  box-shadow: 0 8px 0 #e30404;
+  box-shadow: 0 8px 0 #d50000;
 }
 .btn-danger:active {
-  box-shadow: 0 2px 0 #e30404;
+  box-shadow: 0 2px 0 #d50000;
 }
 
 .hloader {
