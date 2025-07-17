@@ -1,39 +1,48 @@
-import { useState } from 'react'
-import ButtonGroup from './components/ButtonGroup.jsx'
-import Button from './components/Button.jsx'
+import { useEffect } from 'react'
+import TodoItem from './components/todos/TodoItem.jsx'
+import { useTodoStore } from './stores/todo.js'
+
+// 일반 함수 => function (매개변수) { return 데이터 }
+// 화살표 함수 => 매개변수 => 데이터
 
 export default function App() {
-  const [isLoadingForCancel, setIsLoadingForCancel] = useState(false)
-  const [isLoadingForSave, setIsLoadingForSave] = useState(false)
-  const [isLoadingForDelete, setIsLoadingForDelete] = useState(false)
+  const todos = useTodoStore(s => s.todos)
+  const text = useTodoStore(s => s.text)
+  const setText = useTodoStore(s => s.setText)
+  const fetchTodos = useTodoStore(s => s.fetchTodos)
+  const createTodo = useTodoStore(s => s.createTodo)
+
+  useEffect(function () {
+    fetchTodos()
+    // eslint-disable-next-line
+  }, [])
+
   return (
-    <ButtonGroup direction="horizontal">
-      <Button
-        variant="secondary"
-        loading={isLoadingForCancel}
-        onClick={function () {
-          setIsLoadingForCancel(!isLoadingForCancel)
-        }}>
-        취소
-      </Button>
-      <Button
-        variant="primary"
-        width={100}
-        loading={isLoadingForSave}
-        onClick={function () {
-          setIsLoadingForSave(!isLoadingForSave)
-        }}>
-        저장
-      </Button>
-      <Button
-        variant="danger"
-        width={70}
-        loading={isLoadingForDelete}
-        onClick={function () {
-          setIsLoadingForDelete(!isLoadingForDelete)
-        }}>
-        삭제
-      </Button>
-    </ButtonGroup>
+    <>
+      <div>
+        <input
+          type="text"
+          value={text}
+          onChange={function (event) {
+            setText(event.target.value)
+          }}
+          onKeyDown={function (event) {
+            if (event.nativeEvent.isComposing) return
+            if (event.key === 'Enter') createTodo()
+          }}
+        />
+        <button onClick={createTodo}>추가</button>
+      </div>
+      <ul>
+        {todos.map(function (todo) {
+          return (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+            />
+          )
+        })}
+      </ul>
+    </>
   )
 }

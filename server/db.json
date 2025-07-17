@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": "abc111",
+      "text": "아침 먹자",
+      "done": true
+    },
+    {
+      "id": "abx112",
+      "text": "점심 먹자?!",
+      "done": true
+    },
+    {
+      "id": "YaI1wpvjzerlyGODCtbWn",
+      "text": "치킨 먹자",
+      "done": false
+    }
+  ]
+}
