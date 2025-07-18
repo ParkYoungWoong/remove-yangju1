@@ -11,6 +11,9 @@ export default function App() {
   const setText = useTodoStore(s => s.setText)
   const fetchTodos = useTodoStore(s => s.fetchTodos)
   const createTodo = useTodoStore(s => s.createTodo)
+  const ascending = useTodoStore(s => s.ascending)
+  const descending = useTodoStore(s => s.descending)
+  const setDone = useTodoStore(s => s.setDone)
 
   useEffect(function () {
     fetchTodos()
@@ -32,6 +35,28 @@ export default function App() {
           }}
         />
         <button onClick={createTodo}>추가</button>
+      </div>
+      <div>
+        <button onClick={ascending}>오름차순</button>
+        <button onClick={descending}>내림차순</button>
+        <button
+          onClick={function () {
+            setDone(undefined)
+          }}>
+          전체
+        </button>
+        <button
+          onClick={function () {
+            setDone(true)
+          }}>
+          완료
+        </button>
+        <button
+          onClick={function () {
+            setDone(false)
+          }}>
+          할 일
+        </button>
       </div>
       <ul>
         {todos.map(function (todo) {

@@ -4,15 +4,40 @@ export const useTodoStore = create(function (set, get) {
   return {
     todos: [],
     text: '',
+    order: 'asc',
+    done: undefined,
     setText: function (text) {
       set({
         text: text
       })
     },
-    fetchTodos: async function () {
-      const res = await fetch('http://localhost:3000/api/todos', {
-        method: 'GET'
+    ascending: function () {
+      set({
+        order: 'asc'
       })
+      get().fetchTodos()
+    },
+    descending: function () {
+      set({
+        order: 'desc'
+      })
+      get().fetchTodos()
+    },
+    setDone: function (done) {
+      set({
+        done: done
+      })
+      get().fetchTodos()
+    },
+    fetchTodos: async function () {
+      const order = get().order
+      const done = get().done
+      const res = await fetch(
+        `http://localhost:3000/api/todos?order=${order}&done=${done}`,
+        {
+          method: 'GET'
+        }
+      )
       const data = await res.json()
       set({
         todos: data

@@ -2,17 +2,22 @@
   "todos": [
     {
       "id": "abc111",
-      "text": "아침 먹자",
+      "text": "1 아침 먹자",
       "done": true
     },
     {
       "id": "abx112",
-      "text": "점심 먹자?!",
+      "text": "2 점심 먹자",
       "done": true
     },
     {
-      "id": "YaI1wpvjzerlyGODCtbWn",
-      "text": "치킨 먹자",
+      "id": "VouE01cEhre4v4m-1lBsD",
+      "text": "3 치킨 먹자",
+      "done": false
+    },
+    {
+      "id": "EIdyscuosimz5BclXlPnW",
+      "text": "4 꿀잠 자기",
       "done": false
     }
   ]

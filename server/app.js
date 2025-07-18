@@ -8,10 +8,29 @@ const app = express()
 app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174'] }))
 app.use(express.json())
 
-// http://localhost:3000/api/todos
+// https://omdbapi.com?apikey=7035c60c&s=batman
+// http://localhost:3000/api/todos?order=desc&done=false
 app.get('/api/todos', function (req, res) {
   db.read()
-  res.json(db.data.todos)
+  const order = req.query.order || 'asc' // 'asc', 'desc'
+  const done = req.query.done
+
+  let todos = [].concat(db.data.todos)
+  if (done === 'true') {
+    todos = todos.filter(function (todo) {
+      return todo.done
+    })
+  } else if (done === 'false') {
+    todos = todos.filter(function (todo) {
+      return !todo.done
+    })
+  }
+
+  if (order === 'asc') {
+    res.json(todos)
+  } else if (order === 'desc') {
+    res.json(todos.reverse())
+  }
 })
 
 // http://localhost:3000/api/todos

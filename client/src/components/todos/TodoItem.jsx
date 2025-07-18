@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useTodoStore } from '../../stores/todo.js'
 
 export default function TodoItem(props) {
@@ -7,21 +7,40 @@ export default function TodoItem(props) {
   const updateTodo = useTodoStore(s => s.updateTodo)
   const [isEditing, setIsEditing] = useState(false)
   const [text, setText] = useState(todo.text)
+  const [isDone, setIsDone] = useState(todo.done)
+  const inputRef = useRef(null)
+
+  useEffect(
+    function () {
+      if (isEditing) {
+        inputRef.current.focus()
+      }
+    },
+    [isEditing]
+  )
+  useEffect(
+    function () {
+      handleSave()
+    },
+    // eslint-disable-next-line
+    [isDone]
+  )
 
   function onEditMode() {
     setIsEditing(true)
   }
-  function offEditMode() {
+  function offEditMode(todoText = todo.text) {
     setIsEditing(false)
-    setText(todo.text)
+    setText(todoText)
   }
   async function handleSave() {
     if (text.trim() === '') return
     const newTodo = Object.assign({}, todo, {
-      text: text.trim()
+      text: text.trim(),
+      done: isDone
     })
     await updateTodo(newTodo)
-    offEditMode()
+    offEditMode(newTodo.text)
   }
 
   return (
@@ -29,20 +48,34 @@ export default function TodoItem(props) {
       {isEditing ? (
         <>
           <input
+            ref={inputRef}
             type="text"
             value={text}
             onChange={function (event) {
               setText(event.target.value)
             }}
+            onKeyDown={function (event) {
+              if (event.nativeEvent.isComposing) return
+              if (event.key === 'Enter') handleSave()
+              if (event.key === 'Escape') offEditMode()
+            }}
           />
-          <button onClick={offEditMode}>취소</button>
+          <button
+            onClick={function () {
+              offEditMode()
+            }}>
+            취소
+          </button>
           <button onClick={handleSave}>저장</button>
         </>
       ) : (
         <>
           <input
             type="checkbox"
-            defaultChecked={todo.done}
+            checked={isDone}
+            onChange={function (event) {
+              setIsDone(event.target.checked)
+            }}
           />
           <span>{todo.text}</span>
           <button onClick={onEditMode}>수정</button>
