@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useTodoStore } from './stores/todo.js'
-import TodoItem from './components/todos/TodoItem.jsx'
+import { useTodoStore } from '@/stores/todo.js'
+import TodoItem from '@/components/todos/TodoItem.jsx'
 
 export default function TodoList() {
   const todos = useTodoStore(s => s.todos)

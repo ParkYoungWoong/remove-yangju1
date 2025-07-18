@@ -37,7 +37,7 @@ app.get('/api/todos', function (req, res) {
 app.post('/api/todos', function (req, res) {
   db.read()
   const newTodo = {
-    id: nanoid(),
+    id: nanoid(5),
     text: req.body.text,
     done: req.body.done
   }

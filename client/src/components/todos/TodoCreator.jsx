@@ -1,4 +1,4 @@
-import { useTodoStore } from './stores/todo.js'
+import { useTodoStore } from '@/stores/todo.js'
 
 export default function TodoCreator() {
   const text = useTodoStore(s => s.text)

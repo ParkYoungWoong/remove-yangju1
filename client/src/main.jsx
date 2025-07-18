@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+import Router from '@/routes/index.jsx'
 
-const rootEl = document.querySelector('#root')
-const app = createRoot(rootEl)
-app.render(<App />)
+createRoot(document.querySelector('#root')).render(<Router />)
+
+// http://localhost:5173/about
