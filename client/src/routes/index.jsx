@@ -1,25 +1,36 @@
 import { createBrowserRouter, RouterProvider } from 'react-router'
+import Default from '@/routes/layouts/Default.jsx'
+import Home from '@/routes/pages/Home.jsx'
+import About from '@/routes/pages/About.jsx'
+import Todos from '@/routes/pages/Todos.jsx'
+import Movies from '@/routes/pages/Movies.jsx'
+import SignIn from '@/routes/pages/SignIn.jsx'
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <h1>Home page!</h1>
-  },
-  {
-    path: '/about',
-    element: <h1>About page!</h1>
-  },
-  {
-    path: '/signin',
-    element: <h1>Log In page!</h1>
-  },
-  {
-    path: '/todos',
-    element: <h1>Todos page!</h1>
-  },
-  {
-    path: '/movies',
-    element: <h1>Movies page!</h1>
+    element: <Default />,
+    children: [
+      {
+        path: '/',
+        element: <Home />
+      },
+      {
+        path: '/about',
+        element: <About />
+      },
+      {
+        path: '/signin',
+        element: <SignIn />
+      },
+      {
+        path: '/todos',
+        element: <Todos />
+      },
+      {
+        path: '/movies',
+        element: <Movies />
+      }
+    ]
   }
 ])
 
